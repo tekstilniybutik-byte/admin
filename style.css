@@ -60,21 +60,67 @@ button.secondary-btn:hover { background: #E2E8F0; transform: none; box-shadow: n
 .btn-icon.delete:hover { background: #FFDADA; color: #FF477E; }
 
 /* --- МОБІЛЬНА ВЕРСІЯ --- */
+/* --- МОБІЛЬНА ВЕРСІЯ --- */
 @media (max-width: 768px) {
+    /* Робимо шрифт 16px в інпутах, щоб iPhone не наближав екран автоматично */
+    input, select, textarea { font-size: 16px; }
+
+    /* Основний контент і відступи для нижнього меню */
     .content { margin-left: 0; padding: 15px 15px 100px 15px; }
-    .sidebar { width: 100%; height: 80px; top: auto; bottom: 0; padding: 10px; display: flex; flex-direction: row; justify-content: space-around; border-radius: 24px 24px 0 0; box-shadow: 0 -4px 30px rgba(0,0,0,0.08); }
+    
+    /* Нижня панель навігації (як у додатках) */
+    .sidebar { width: 100%; height: 75px; top: auto; bottom: 0; padding: 10px; display: flex; flex-direction: row; justify-content: space-around; border-radius: 24px 24px 0 0; box-shadow: 0 -4px 20px rgba(0,0,0,0.06); background: white; }
     .sidebar h2 { display: none; }
-    .nav-btn { flex-direction: column; gap: 4px; padding: 10px; font-size: 12px; border-radius: 16px; margin: 0; }
+    .nav-btn { flex-direction: column; gap: 4px; padding: 8px; font-size: 12px; border-radius: 16px; margin: 0; flex: 1; text-align: center; justify-content: center; background: transparent !important; color: #636E72; }
+    .nav-btn.active { color: #FF477E; box-shadow: none; font-weight: 800; }
+    .nav-btn.active::after { content: ''; display: block; width: 20px; height: 3px; background: #FF477E; border-radius: 3px; margin: 4px auto 0; }
+
+    .card { padding: 20px; }
     
-    .product-item { flex-direction: column; align-items: stretch; }
-    .product-img { width: 100%; height: 250px; }
+    /* Списки товарів - дозволяємо скролити всю сторінку на телефоні */
+    .scrollable-list { max-height: none; overflow: visible; padding-right: 0; }
     
-    /* Адаптація блоків цін та комплектації */
-    .var-header { grid-template-columns: 1fr 1fr; }
-    .var-header .var-name { grid-column: span 2; }
-    .var-header .remove-var-btn { grid-column: span 2; width: 100%; background: #FFDADA; }
+    /* Картка товару */
+    .product-item { flex-direction: column; align-items: stretch; gap: 15px; padding: 15px; }
+    .product-img { width: 100%; height: 250px; border-radius: 12px; }
     
-    .comp-row { grid-template-columns: 1fr 1fr; }
-    .comp-row .comp-name { grid-column: span 2; }
-    .comp-row .comp-del { grid-column: span 2; width: 100%; background: #F1F2F6; }
+    /* Кнопки під товаром (редагувати / видалити) на всю ширину */
+    .product-actions { flex-direction: row; width: 100%; gap: 10px; margin-top: 10px; }
+    .btn-icon { flex: 1; height: 50px; border-radius: 16px; }
+    
+    /* Адаптація варіацій та комплектації */
+    .var-block { padding: 15px; }
+    .var-header { display: flex; flex-direction: column; gap: 10px; }
+    .var-header input { width: 100%; }
+    .var-header .remove-var-btn { width: 100%; height: 45px; background: #FFDADA; color: #FF477E; margin-top: 5px; }
+    
+    .comp-row { display: flex; flex-direction: column; gap: 8px; padding-bottom: 15px; border-bottom: 1px dashed #E2E8F0; }
+    .comp-row:last-child { border-bottom: none; padding-bottom: 0; }
+    .comp-row .comp-del { width: 100%; height: 40px; background: #F1F2F6; margin-top: 5px; }
 }
+/* --- СКРОЛ ДЛЯ СПИСКУ ТОВАРІВ --- */
+.scrollable-list {
+    max-height: 70vh; /* Висота: 70% екрану */
+    overflow-y: auto;
+    padding-right: 15px; /* Відступ, щоб скролбар не налізав на картки */
+}
+
+/* Стилізація самого скролбару (працює в Chrome/Edge/Safari) */
+.scrollable-list::-webkit-scrollbar {
+    width: 8px;
+}
+.scrollable-list::-webkit-scrollbar-track {
+    background: #F1F2F6;
+    border-radius: 10px;
+}
+.scrollable-list::-webkit-scrollbar-thumb {
+    background: #FF477E;
+    border-radius: 10px;
+}
+.scrollable-list::-webkit-scrollbar-thumb:hover {
+    background: #FF6B8B;
+}
+/* --- ВІКНО ВХОДУ --- */
+.login-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #FFF5F7; display: flex; justify-content: center; align-items: center; z-index: 1000; }
+.login-box { background: white; padding: 40px; border-radius: 24px; box-shadow: 0 12px 32px rgba(255, 107, 139, 0.15); text-align: center; width: 90%; max-width: 400px; }
+.login-box h2 { margin-bottom: 25px; color: #2D3436; }
